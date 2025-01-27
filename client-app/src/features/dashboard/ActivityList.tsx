@@ -3,9 +3,10 @@ import { Activity } from "../../models/activity";
 
 interface ActivityListProps {
   activities: Activity[];
+  selectActivity: (id: string) => void;
 }
 
-const ActivityList = ({ activities }: ActivityListProps) => {
+const ActivityList = ({ activities, selectActivity }: ActivityListProps) => {
   return (
     <Segment>
       <Item.Group divided>
@@ -21,7 +22,7 @@ const ActivityList = ({ activities }: ActivityListProps) => {
                 </div>
               </Item.Description>
               <Item.Extra>
-                <Button floated="right" content="View" color="blue" />
+                <Button floated="right" content="View" color="blue" onClick={()=>{selectActivity(activity.id)}}/>
                 <Label basic content={activity.category} />
               </Item.Extra>
             </Item.Content>
