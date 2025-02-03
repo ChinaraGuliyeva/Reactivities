@@ -1,24 +1,28 @@
 import { Container, Menu, Button } from "semantic-ui-react";
+import { useStore } from "../stores/store";
+import { observer } from "mobx-react-lite";
 
-interface NavBarProps {
-  openForm: () => void;
-}
+const NavBar = () => {
+  const { activityStore } = useStore();
 
-const NavBar = ({openForm}: NavBarProps) => {
   return (
     <Menu fixed="top" inverted>
       <Container>
         <Menu.Item header>
-          <img src="/assets/logo.png" alt="logo" className="logo-img"/>
+          <img src="/assets/logo.png" alt="logo" className="logo-img" />
           Reactivities
         </Menu.Item>
         <Menu.Item name="Activities" />
         <Menu.Item>
-          <Button positive content="Create Activity" onClick={openForm}/>
+          <Button
+            positive
+            content="Create Activity"
+            onClick={() => activityStore.openForm()}
+          />
         </Menu.Item>
       </Container>
     </Menu>
   );
 };
 
-export default NavBar;
+export default observer(NavBar);
