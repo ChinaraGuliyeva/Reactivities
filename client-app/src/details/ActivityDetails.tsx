@@ -13,7 +13,7 @@ import { observer } from "mobx-react-lite";
 const ActivityDetails = () => {
 
   const {activityStore} = useStore();
-  const {selectedActivity: activity, openForm, cancelSelectedActivity } = activityStore;
+  const {selectedActivity: activity } = activityStore;
 
   if(!activity) return;
 
@@ -29,8 +29,8 @@ const ActivityDetails = () => {
       </CardContent>
       <CardContent extra>
         <Button.Group widths="2">
-          <Button basic color="blue" content="Edit" onClick={()=> openForm(activity.id)}/>
-          <Button basic color="grey" content="Cancel" onClick={cancelSelectedActivity}/>
+          <Button basic color="blue" content="Edit"/>
+          <Button basic color="grey" content="Cancel"/>
         </Button.Group>
       </CardContent>
     </Card>
