@@ -8,7 +8,7 @@ export default class ActivityStore {
   selectedActivity: Activity | undefined = undefined;
   editMode = false;
   loading = false;
-  loadingInitial = true;
+  loadingInitial = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -21,6 +21,7 @@ export default class ActivityStore {
   }
 
   loadActivities = async () => {
+    this.setLoadingInitial(true);
     try {
       const activities = await agent.Activities.list();
       activities.forEach((activity) => {
@@ -37,12 +38,17 @@ export default class ActivityStore {
     let activity = this.getActivity(id);
     if (activity) {
       this.selectedActivity = activity;
+      return activity;
     } else {
-      this.loadingInitial = true;
+      this.setLoadingInitial(true);
       try {
         activity = await agent.Activities.details(id);
         this.setActivity(activity);
+        runInAction(() => {
+          this.selectedActivity = activity;
+        });
         this.setLoadingInitial(false);
+        return activity;
       } catch (error) {
         console.log(error);
         runInAction(() => {
@@ -50,16 +56,16 @@ export default class ActivityStore {
         });
       }
     }
-  }
+  };
 
   private getActivity = (id: string) => {
     return this.activityRegistry.get(id);
-  }
+  };
 
   private setActivity = (activity: Activity) => {
     activity.date = activity.date.split("T")[0];
     this.activityRegistry.set(activity.id, activity);
-  }
+  };
 
   setLoadingInitial = (state: boolean) => {
     this.loadingInitial = state;
