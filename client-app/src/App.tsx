@@ -1,16 +1,24 @@
 import { Container } from "semantic-ui-react";
 import "./App.css";
 import NavBar from "./layout/NavBar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import HomePage from "./features/home/HomePage";
 
 const App = () => {
+  const location = useLocation();
 
   return (
     <>
-      <NavBar />
-      <Container className="reactivities-container">
-        <Outlet />
-      </Container>
+      {location.pathname === "/" ? (
+        <HomePage />
+      ) : (
+        <>
+          <NavBar />
+          <Container className="reactivities-container">
+            <Outlet />
+          </Container>
+        </>
+      )}
     </>
   );
 };

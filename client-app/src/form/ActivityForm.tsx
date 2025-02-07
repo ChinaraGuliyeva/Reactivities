@@ -3,7 +3,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { useStore } from "../stores/store";
 import { observer } from "mobx-react-lite";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Activity } from "../models/activity";
 import LoadingComponent from "../layout/LoadingComponent";
 
@@ -100,7 +100,7 @@ const ActivityForm = () => {
           type="submit"
           content="Submit"
         />
-        <Button floated="right" type="button" content="Cancel" />
+        <Button as={Link} to='/activities' floated="right" type="button" content="Cancel" />
       </Form>
     </Segment>
   );

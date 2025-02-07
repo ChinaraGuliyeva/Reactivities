@@ -4,6 +4,7 @@ import "semantic-ui-css/semantic.min.css";
 import { store, StoreContext } from "./stores/store.ts";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router/Routes.tsx";
+import 'react-calendar/dist/Calendar.css';
 
 createRoot(document.getElementById("root")!).render(
   <StoreContext.Provider value={store}>
