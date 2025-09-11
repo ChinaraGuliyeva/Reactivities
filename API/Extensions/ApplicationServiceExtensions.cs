@@ -1,7 +1,7 @@
 ﻿using Application.Core;
 using Persistence;
-using Application.Activities;
 using Microsoft.EntityFrameworkCore;
+using Application.Activities.Queries;
 
 namespace API.Extensions
 {
@@ -23,7 +23,7 @@ namespace API.Extensions
                 });
             });
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(List.Handler).Assembly));
-            services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
             return services;
         }

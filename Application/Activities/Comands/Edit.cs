@@ -3,7 +3,7 @@ using Domain;
 using MediatR;
 using Persistence;
 
-namespace Application.Activities
+namespace Application.Activities.Comands
 {
     public class Edit
     {
@@ -26,9 +26,11 @@ namespace Application.Activities
 
                 var activity = await _context.Activities.FindAsync(request.Activity.Id);
 
+                if (activity == null) throw new Exception("Cannot find activity");
+
                 _mapper.Map(request.Activity, activity);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellationToken);
             }
         }
     }

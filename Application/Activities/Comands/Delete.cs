@@ -1,14 +1,13 @@
-﻿
-using MediatR;
+﻿using MediatR;
 using Persistence;
 
-namespace Application.Activities
+namespace Application.Activities.Comands
 {
     public class Delete
     {
         public class Command : IRequest
         {
-            public Guid Id { get; set; }
+            public string Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
