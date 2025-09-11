@@ -1,5 +1,7 @@
 using API.Extensions;
+using Application.Activities.Validators;
 using Application.Core;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -8,8 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddCors();
+builder.Services.AddMediatR(x => { x.RegisterServicesFromAssemblyContaining<Application.Activities.Queries.List.Handler>();
+    x.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    }
+); 
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+builder.Services.AddValidatorsFromAssemblyContaining<CreateActivityValidator>();
 
 var app = builder.Build();
 
