@@ -1,4 +1,5 @@
 using API.Extensions;
+using API.Middleware;
 using Application.Activities.Validators;
 using Application.Core;
 using FluentValidation;
@@ -18,6 +19,7 @@ builder.Services.AddMediatR(x => { x.RegisterServicesFromAssemblyContaining<Appl
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 builder.Services.AddValidatorsFromAssemblyContaining<CreateActivityValidator>();
+builder.Services.AddTransient<ExceptionMiddleware>();
 
 var app = builder.Build();
 
@@ -28,6 +30,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
